@@ -1,0 +1,127 @@
+schema {
+    query: Query
+}
+
+type MeetupGroup {
+    meetupID: String!
+    name: String
+    city: String
+    country: String
+    organizers: [Organizer!]!
+    meetups: [Meetup!]!
+    latitude: Float
+    longitude: Float
+}
+
+type Organizer {
+    id: String!
+    name: String
+    title: String
+    email: String
+    company: Company
+    countries: [Country]
+    github: String
+    twitter: String
+    speakersBureau: String
+    # meetupGroups: [MeetupGroup]
+}
+
+type Company {
+    id: String!
+    name: String
+    websiteURL: String
+    logoURL: String
+    countries: [Country]
+    # organizers: [Organizer]
+    # speakers: [Speaker]
+}
+
+type Meetup {
+    id: Int!
+    name: String
+    date: String
+    duration: String
+    attendees: Int
+    address: String
+    sponsors: MeetupSponsor
+    presentations: [Presentation]
+    # meetupGroup: MeetupGroup
+
+}
+
+type Member {
+    id: String!
+    name: String
+    websiteURL: String
+    logoURL: String
+    countries: [Country]
+}
+
+type Sponsor {
+    id: String!
+    name: String
+    websiteURL: String
+    logoURL: String
+    countries: [Country]
+}
+type MeetupSponsor {
+    id: String!
+    venue: Sponsor
+    other: [Sponsor]
+}
+
+type Presentation {
+    id: String!
+    duration: String
+    title: String
+    slides: String
+    speakers: [Speaker]
+}
+
+type Speaker {
+    id: String!
+    name: String
+    title: String
+    email: String
+    company: Company
+    countries: [Country]
+    github: String
+    speakersBureau: String
+}
+
+type Country {
+    id: String
+    name: String
+}
+
+
+type Query {
+    meetupGroups: [MeetupGroup!]!
+    meetupGroup(meetupID: String!): MeetupGroup!
+    
+    organizers: [Organizer!]!
+    organizer(id: String!): Organizer!
+        
+    companies: [Company!]!
+    company(id: String!): Company!
+        
+    meetups: [Meetup!]!
+    meetup(id: Int!): Meetup!
+            
+    sponsors: [Sponsor!]!
+    sponsor(id: String!): Sponsor!
+
+    members: [Member!]!
+    member(id: String!): Member!
+
+    meetupSponsors: [MeetupSponsor!]!
+    meetupSponsor(id: String!): MeetupSponsor!
+
+    presentations: [Presentation!]!
+    presentation(id: String!): Presentation!
+
+    speakers: [Speaker!]!
+    speaker(id: String!): Speaker!
+
+    slackInvite(email: String!): String!
+}
